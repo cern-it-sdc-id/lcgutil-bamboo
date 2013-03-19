@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 if [[ "$1" == "" || "$2" == "" ]]; then
 	echo "Usage $0 [rpmdir] [rpm_repo_path]"
