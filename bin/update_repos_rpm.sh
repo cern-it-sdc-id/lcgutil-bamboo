@@ -5,7 +5,7 @@ if [[ "$1" == "" || "$2" == "" ]]; then
 	exit 0
 fi
 
-RPM_DIR=$1
+RPM_DIR=$( echo "$1" | sed 's@\([^/]\)/*@\1@g')
 REPO_ADDR=$2
 
 echo "*** test update repos ***** "
@@ -21,4 +21,4 @@ echo "*** renew repo ***"
 createrepo $REPO_ADDR
 
 echo "*** clean everything ***"
-rm -rf $RPM_DIR/
+rm -rf $RPM_DIR
