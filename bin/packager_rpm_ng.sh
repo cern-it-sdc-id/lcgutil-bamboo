@@ -83,6 +83,7 @@ fi
 
 create_rpmbuild_env $1
 mkdir -p SRPMS
+mkdir -p $FINAL_DIR
 
 # list spec file
 for i in $1/*.spec 
