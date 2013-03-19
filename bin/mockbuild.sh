@@ -14,7 +14,7 @@ MOCK_OPTS_CLEAN="--scrub=yum-cache"
 MOCK_CONFIG_DIRNAME="$( cd "$DIR/../mock_configs" && pwd )"
 SRC_RPM_DIR=$2
 MOCK_RESULT_DIR="/var/lib/mock/${MOCK_CONFIG}/result"
-DEST_RPM_DIR="$3"
+DEST_RPM_DIR=$( echo "$3" | sed 's@\([^/]\)/*@\1@g')
 
 RPMS_NAME="`pwd`/${SRC_RPM_DIR}/`ls -t ${SRC_RPM_DIR} | head -n 1`"
 
@@ -24,6 +24,8 @@ echo " name : $RPMS_NAME"
 echo "## list mock config..."
 ls $MOCK_CONFIG_DIRNAME
 
+echo "## dest dir ${DEST_RPM_DIR}/ "
+
 echo "## launch mock clean ..."
 $MOCK_EXE --configdir=${MOCK_CONFIG_DIRNAME}/ -r $MOCK_CONFIG $MOCK_OPTS_CLEAN  || true
 echo "## launch mock ..."
@@ -31,8 +33,8 @@ echo " build command mock --configdir=${MOCK_CONFIG_DIRNAME}/ -r $MOCK_CONFIG $R
 $MOCK_EXE --configdir=${MOCK_CONFIG_DIRNAME}/ -r $MOCK_CONFIG $RPMS_NAME
 
 echo "## creat link to result "
-rm -f $DEST_RPM_DIR/
-ln -s  $MOCK_RESULT_DIR $DEST_RPM_DIR/
+rm -f $DEST_RPM_DIR
+ln -s  $MOCK_RESULT_DIR $DEST_RPM_DIR
 
 echo "## clean everything "
 rm -rf ${SRC_RPM_DIR}
