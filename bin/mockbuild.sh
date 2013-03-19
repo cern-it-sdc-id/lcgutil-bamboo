@@ -40,10 +40,10 @@ echo "## clean everything "
 rm -rf ${SRC_RPM_DIR}
 
 echo "## list RPMS & resu "
-ls -l RPMS_build/
+ls -l $DEST_RPM_DIR/
 
 echo "## print the build log for debug purpose "
 echo "## root.log"
-cat RPMS_build/root.log
+cat $DEST_RPM_DIR/root.log
 echo "## build.log"
-cat RPMS_build/build.log
+cat $DEST_RPM_DIR/build.log
