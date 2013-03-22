@@ -37,6 +37,7 @@ rm -f $DEST_RPM_DIR
 ln -s  $MOCK_RESULT_DIR $DEST_RPM_DIR
 
 echo "## clean everything "
+rm -f ${SRC_RPM_DIR}/*.rpm
 rm -rf ${SRC_RPM_DIR}
 
 echo "## list RPMS & resu "

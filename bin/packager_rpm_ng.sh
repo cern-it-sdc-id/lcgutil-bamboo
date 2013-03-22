@@ -82,6 +82,7 @@ if [[ "$1" == "" || "$2" == "" || "$3" == "" ]]; then
 fi
 
 create_rpmbuild_env $1
+rm -f $FINAL_DIR/*.rpm
 mkdir -p SRPMS
 mkdir -p $FINAL_DIR
 
