@@ -34,7 +34,7 @@ ls $MOCK_CONFIG_DIRNAME
 
 echo "## dest dir ${DEST_RPM_DIR}/ "
 
-create_lock ${LOCK_FILE} 900
+#create_lock ${LOCK_FILE} 900
 
 echo "## launch mock clean ..."
 $MOCK_EXE --configdir=${MOCK_CONFIG_DIRNAME}/ -r $MOCK_CONFIG $MOCK_OPTS_CLEAN  || true
@@ -42,7 +42,7 @@ echo "## launch mock ..."
 echo " build command mock --configdir=${MOCK_CONFIG_DIRNAME}/ -r $MOCK_CONFIG $RPMS_NAME"
 $MOCK_EXE --configdir=${MOCK_CONFIG_DIRNAME}/ -r $MOCK_CONFIG $RPMS_NAME
 
-delete_lock ${LOCK_FILE}
+#delete_lock ${LOCK_FILE}
 
 
 echo "## creat link to result "
