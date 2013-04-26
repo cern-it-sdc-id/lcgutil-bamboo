@@ -38,7 +38,7 @@ echo "Locker : $LOCK_FILE"
 echo "*** list RPMS ***"
 ls -l $RPM_DIR/*.rpm
 
-write_lock $LOCK_FILE "update_repo_func"
+#write_lock $LOCK_FILE "update_repo_func"
 
 echo "*** clean everything ***"
 #rm -f $RPM_DIR/*.rpm
