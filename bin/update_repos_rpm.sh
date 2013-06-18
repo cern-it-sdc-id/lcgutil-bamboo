@@ -28,12 +28,16 @@ fi
 
 RPM_DIR=$( echo "$1" | sed 's@//*@/@g' | sed 's@\([^/]\)/$@\1@g' )
 REPO_ADDR=$2
-LOCK_FILE="$REPO_ADDR/lock_repo"
+DIR_SCRIPT=$(dirname $0)
+
 
 echo "*** test update repos ***** "
 echo "SOURCE RPM Dir : $RPM_DIR"
 echo "destination repo : $REPO_ADDR"
-echo "Locker : $LOCK_FILE"
+
+
+echo "*** setup auth ***"
+bash $DIR_SCRIPT/auth_service_gd.sh
 
 echo "*** list RPMS ***"
 ls -l $RPM_DIR/*.rpm
