@@ -1,0 +1,5 @@
+"dteam-test" "lxbra2309.cern.ch" "15002" "/DC=ch/DC=cern/OU=computers/CN=lxbra2309.cern.ch" "dteam" 
+"dteam" "voms.hellasgrid.gr" "15004" "/C=GR/O=HellasGrid/OU=hellasgrid.gr/CN=voms.hellasgrid.gr" "dteam"
+"dteam-test2" "cvitbvoms1.cern.ch" "15002" "/DC=ch/DC=cern/OU=computers/CN=cvitbvoms1.cern.ch" "dteam"
+"testers.eu-emi.eu" "emitestbed07.cnaf.infn.it" "15002" "/C=IT/O=INFN/OU=Host/L=CNAF/CN=emitestbed07.cnaf.infn.it" "testers.eu-emi.eu"
+
