@@ -1,3 +1,5 @@
+#!/bin/bash
+
 MY_DIR="$(dirname $0)"
 MY_ABS_DIR="$(readlink -e ${MY_DIR})"
 
