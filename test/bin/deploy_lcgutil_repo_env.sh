@@ -5,7 +5,7 @@ MY_ABS_DIR="$(readlink -e ${MY_DIR})"
 
 
 PLATFORM="$(sed 's/.*\(el[0-9]\).*/\1/g')"
-REPO_FILE="ttp://grid-deployment.web.cern.ch/grid-deployment/dms/lcgutil/repos/lcgutil-continuous-${PLATFORM}.repo"
+REPO_FILE="http://grid-deployment.web.cern.ch/grid-deployment/dms/lcgutil/repos/lcgutil-continuous-${PLATFORM}.repo"
 
 echo " launch setup lcgutil client env for $PLATFORM *** "
 
