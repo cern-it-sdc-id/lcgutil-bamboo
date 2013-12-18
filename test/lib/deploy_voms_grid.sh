@@ -15,8 +15,9 @@ yum install voms-clients -y
 
 
 echo "## copy grid security vomsdir "
-cp -r $MYDIR/../share/voms/vomsdir /etc/grid-security/ 
-cp $MYDIR/../share/voms/vomses /etc/vomses
+yum install voms-config-wlcg -y
+#cp -r $MYDIR/../share/voms/vomsdir /etc/grid-security/ 
+#cp $MYDIR/../share/voms/vomses /etc/vomses
 
 echo "## End of grid voms deployment"
 
