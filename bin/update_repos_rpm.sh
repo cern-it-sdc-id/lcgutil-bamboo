@@ -21,6 +21,7 @@ function clean_old_rpms {
     for rpm in `ls -1 *.rpm`; do
         echo $rpm
         rm_pattern=`echo $rpm | awk 'match($0, /^((([a-zA-Z]+-?)+)(([0-9]+\.)*([0-9]+)))/, m) { print m[1]"-*.rpm"; }'`
+        echo "$REPO_ADDR/$rm_pattern"
         rm -vf "$REPO_ADDR/$rm_pattern"
     done
     popd
