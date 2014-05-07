@@ -10,7 +10,7 @@ function copy_files {
 function copy_files_rec {
 	set +e
 	let x=$3+1
-	cp $1 $2
+	cp -v $1 $2
 	if [[ "$?" == "0" ]]; then
 		echo "copy done"
 		return 0
