@@ -1,7 +1,13 @@
+#!/bin/bash
+
+if [ "$1" == "" ]; then
+    echo "Expecting password"
+    exit 1
+fi
 
 echo "## authenticate with the service account for access"
 kinit gdrepo@CERN.CH <<EOF
-Kewevu78
+$1
 EOF
 if [ $? -ne 0 ]; then
 echo "Could not get AFS token for writing to the repository"

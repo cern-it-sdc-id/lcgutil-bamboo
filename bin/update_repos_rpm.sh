@@ -31,14 +31,15 @@ function clean_old_rpms {
 
 set -e
 
-if [[ "$1" == "" || "$2" == "" ]]; then
-	echo "Usage $0 [rpmdir] [rpm_repo_path]"
+if [[ "$1" == "" || "$2" == "" || "$3" == "" ]]; then
+	echo "Usage $0 [rpmdir] [rpm_repo_path] [gdrepo password]"
 	exit 0
 fi
 
 RPM_DIR=$( echo "$1" | sed 's@//*@/@g' | sed 's@\([^/]\)/$@\1@g' )
 REPO_ADDR=$2
 DIR_SCRIPT=$(dirname $0)
+GDPASSWORD=$3
 
 
 echo "*** test update repos ***** "
@@ -47,7 +48,7 @@ echo "destination repo : $REPO_ADDR"
 
 
 echo "*** setup auth ***"
-bash $DIR_SCRIPT/auth_service_gd.sh
+bash $DIR_SCRIPT/auth_service_gd.sh "$GDPASSWORD"
 
 echo "*** list RPMS ***"
 ls -l $RPM_DIR/*.rpm
