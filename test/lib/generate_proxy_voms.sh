@@ -15,8 +15,7 @@ export X509_USER_KEY="$CERTDIR/userkey.pem"
 
 
 echo "## Generate proxy certificate with $X509_USER_CERT and $X509_USER_KEY"
-# When RFC bug is fixed (stack smashing), enable it again!
-voms-proxy-init --debug --voms $MY_VO <<EOF
+voms-proxy-init --debug --rfc --voms $MY_VO <<EOF
 $VOMS_PASS
 EOF
 
