@@ -42,7 +42,7 @@ DIR_SCRIPT=$(dirname $0)
 GDPASSWORD=$3
 
 # Some nodes are missing createrepo
-yum install createrepo -v
+yum install createrepo -y
 
 echo "*** test update repos ***** "
 echo "SOURCE RPM Dir : $RPM_DIR"
