@@ -13,7 +13,19 @@ DIR=$(dirname $(readlink -f $0) )
 # import copyfile
 source $DIR/lockers.sh
 
+# Create tmpfs
+echo "Print the amount of RAM"
+free -m
+echo "Printed mem info"
 
+mount -t tmpfs -o size=1536m tmpfs /var/lib/mock
+
+echo "Print the amount of  RAM after creating the RAM disk"
+free -m
+echo "Printed mem info"
+
+
+# Build
 echo "*** begin mock build *** "
 MOCK_CONFIG=$1
 MOCK_EXE="/usr/bin/mock"
@@ -45,9 +57,10 @@ $MOCK_EXE --configdir=${MOCK_CONFIG_DIRNAME}/ -r $MOCK_CONFIG $RPMS_NAME
 #delete_lock ${LOCK_FILE}
 
 
-echo "## creat link to result "
+echo "## copy result" 
 rm -f $DEST_RPM_DIR
-ln -s  $MOCK_RESULT_DIR $DEST_RPM_DIR
+mkdir -p $DEST_RPM_DIR
+cp -r $MOCK_RESULT_DIR/* $DEST_RPM_DIR
 
 echo "## clean everything "
 rm -f ${SRC_RPM_DIR}/*.rpm
@@ -61,3 +74,8 @@ echo "## root.log"
 cat $DEST_RPM_DIR/root.log
 echo "## build.log"
 cat $DEST_RPM_DIR/build.log
+
+# Umount tmpfs
+sync
+umount -f /var/lib/mock
+
