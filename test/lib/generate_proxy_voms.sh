@@ -15,9 +15,11 @@ export X509_USER_KEY="$CERTDIR/userkey.pem"
 
 
 echo "## Generate proxy certificate with $X509_USER_CERT and $X509_USER_KEY"
-voms-proxy-init --debug --rfc --voms $MY_VO <<EOF
+voms-proxy-init --debug --rfc --voms $MY_VO --pwstdin <<EOF
 $VOMS_PASS
 EOF
+
+voms-proxy-info --all
 
 echo "## End generation"
 
