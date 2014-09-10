@@ -8,22 +8,30 @@ if [[ "$1" == "" || "$2" == "" || "$3" == "" ]]; then
 	exit 1
 fi
 
+DISABLE_TMPFS=0
+if [ "$4" == "no-tmpfs" ]; then
+    DISABLE_TMPFS=1
+fi
+
 DIR=$(dirname $(readlink -f $0) )
 
 # import copyfile
 source $DIR/lockers.sh
 
 # Create tmpfs
-echo "Print the amount of RAM"
-free -m
-echo "Printed mem info"
+if [ $DISABLE_TMPFS -ne 0 ]; then
+    echo "Print the amount of RAM"
+    free -m
+    echo "Printed mem info"
 
-mount -t tmpfs -o size=1536m tmpfs /var/lib/mock
+    mount -t tmpfs -o size=1536m tmpfs /var/lib/mock
 
-echo "Print the amount of  RAM after creating the RAM disk"
-free -m
-echo "Printed mem info"
-
+    echo "Print the amount of  RAM after creating the RAM disk"
+    free -m
+    echo "Printed mem info"
+else
+    echo "tmpfs disabled"
+fi
 
 # Build
 echo "*** begin mock build *** "
@@ -76,6 +84,8 @@ echo "## build.log"
 cat $DEST_RPM_DIR/build.log
 
 # Umount tmpfs
-sync
-umount -f /var/lib/mock
+if [ $DISABLE_TMPFS -ne 0 ]; then
+    sync
+    umount -f /var/lib/mock
+fi
 
