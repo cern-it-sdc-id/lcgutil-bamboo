@@ -19,7 +19,7 @@ DIR=$(dirname $(readlink -f $0) )
 source $DIR/lockers.sh
 
 # Create tmpfs
-if [ $DISABLE_TMPFS -ne 0 ]; then
+if [ $DISABLE_TMPFS -eq 0 ]; then
     echo "Print the amount of RAM"
     free -m
     echo "Printed mem info"
@@ -84,7 +84,7 @@ echo "## build.log"
 cat $DEST_RPM_DIR/build.log
 
 # Umount tmpfs
-if [ $DISABLE_TMPFS -ne 0 ]; then
+if [ $DISABLE_TMPFS -eq 0 ]; then
     sync
     umount -f /var/lib/mock
 fi
