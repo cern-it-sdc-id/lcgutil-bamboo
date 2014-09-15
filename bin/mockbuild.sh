@@ -70,6 +70,7 @@ echo " build command mock --configdir=${MOCK_CONFIG_DIRNAME}/ -r $MOCK_CONFIG $R
 $MOCK_EXE --configdir=${MOCK_CONFIG_DIRNAME}/ -r $MOCK_CONFIG $RPMS_NAME
 if [ $? -ne 0 ]; then
     echo "Mock build failed!"
+    umount -f /var/lib/mock
     exit 1
 fi
 
