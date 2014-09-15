@@ -44,7 +44,14 @@ MOCK_RESULT_DIR="/var/lib/mock/${MOCK_CONFIG}/result"
 DEST_RPM_DIR=$( echo "$3" | sed 's@\([^/]\)/*@\1@g')
 LOCK_FILE="/tmp/${MOCK_CONFIG}_lock"
 
-RPMS_NAME="`pwd`/${SRC_RPM_DIR}/`ls -t ${SRC_RPM_DIR} | head -n 1`"
+pushd "${SRC_RPM_DIR}"
+RPMS_NAME=`ls -t | head -n 1`
+if [ -z "${RPMS_NAME}" ]; then
+    echo "No rpms found!"
+    exit 1
+fi
+RPMS_NAME=`readlink -f "${RPMS_NAME}"`
+popd
 
 echo "## SRPM names : "
 echo " name : $RPMS_NAME"
@@ -61,6 +68,10 @@ $MOCK_EXE --configdir=${MOCK_CONFIG_DIRNAME}/ -r $MOCK_CONFIG $MOCK_OPTS_CLEAN  
 echo "## launch mock ..."
 echo " build command mock --configdir=${MOCK_CONFIG_DIRNAME}/ -r $MOCK_CONFIG $RPMS_NAME"
 $MOCK_EXE --configdir=${MOCK_CONFIG_DIRNAME}/ -r $MOCK_CONFIG $RPMS_NAME
+if [ $? -ne 0 ]; then
+    echo "Mock build failed!"
+    exit 1
+fi
 
 #delete_lock ${LOCK_FILE}
 
@@ -70,9 +81,9 @@ rm -f $DEST_RPM_DIR
 mkdir -p $DEST_RPM_DIR
 cp -r $MOCK_RESULT_DIR/* $DEST_RPM_DIR
 
-echo "## clean everything "
-rm -f ${SRC_RPM_DIR}/*.rpm
-rm -rf ${SRC_RPM_DIR}
+#echo "## clean everything "
+#rm -f ${SRC_RPM_DIR}/*.rpm
+#rm -rf ${SRC_RPM_DIR}
 
 echo "## list RPMS & resu "
 ls -l $DEST_RPM_DIR/
