@@ -68,14 +68,22 @@ $MOCK_EXE --configdir=${MOCK_CONFIG_DIRNAME}/ -r $MOCK_CONFIG $MOCK_OPTS_CLEAN  
 echo "## launch mock ..."
 echo " build command mock --configdir=${MOCK_CONFIG_DIRNAME}/ -r $MOCK_CONFIG $RPMS_NAME"
 $MOCK_EXE --configdir=${MOCK_CONFIG_DIRNAME}/ -r $MOCK_CONFIG $RPMS_NAME
-if [ $? -ne 0 ]; then
+MOCK_RET=$?
+
+echo "## print the build log for debug purpose "
+echo "## root.log"
+cat $MOCK_RESULT_DIR/root.log
+echo "## build.log"
+cat $MOCK_RESULT_DIR/build.log
+
+
+if [ $MOCK_RET -ne 0 ]; then
     echo "Mock build failed!"
     umount -f /var/lib/mock
     exit 1
 fi
 
 #delete_lock ${LOCK_FILE}
-
 
 echo "## copy result" 
 rm -f $DEST_RPM_DIR
@@ -86,14 +94,8 @@ cp -r $MOCK_RESULT_DIR/* $DEST_RPM_DIR
 #rm -f ${SRC_RPM_DIR}/*.rpm
 #rm -rf ${SRC_RPM_DIR}
 
-echo "## list RPMS & resu "
+echo "## list RPMS & results "
 ls -l $DEST_RPM_DIR/
-
-echo "## print the build log for debug purpose "
-echo "## root.log"
-cat $DEST_RPM_DIR/root.log
-echo "## build.log"
-cat $DEST_RPM_DIR/build.log
 
 # Umount tmpfs
 if [ $DISABLE_TMPFS -eq 0 ]; then
