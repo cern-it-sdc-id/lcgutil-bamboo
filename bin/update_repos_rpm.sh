@@ -12,7 +12,7 @@ function update_repo_func {
     copy_files "$RPM_DIR/*.rpm" "$REPO_ADDR"
 
     echo "*** renew repo $REPO_ADDR ***"
-    createrepo -v $REPO_ADDR
+    createrepo -s sha1 -v $REPO_ADDR
 }
 
 function clean_old_rpms {
